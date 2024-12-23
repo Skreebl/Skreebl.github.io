@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматичне обчислення</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+            width: 90%;
+        }
+        .columns {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            width: 80px;
+            padding: 5px;
+            margin-top: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            width: 90%;
+        }
+        .key {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .key:active {
+            background-color: #ddd;
+        }
+        #result-box {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 90%;
+            text-align: center;
+            font-weight: bold;
+            background-color: #fff;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .action-buttons button:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- VALVULA -->
+        <div class="column">
+            <label for="col0">VALVULA</label>
+            <input type="number" id="col0" placeholder=" - " readonly>
+        </div>
+        <!-- Основні колонки -->
+        <div class="columns">
+            <div class="column">
+                <label for="col1">Entrada</label>
+                <input type="number" id="col1" placeholder=" - " readonly>
+            </div>
+            <div class="column">
+                <label for="col2">Saida</label>
+                <input type="number" id="col2" placeholder=" - " readonly>
+            </div>
+            <div class="column">
+                <label for="col3">Vasos</label>
+                <input type="number" id="col3" placeholder=" - " readonly>
+            </div>
+        </div>
+    </div>
+    <div id="result-box"> % de drenagem : ---</div>
+
+    <div class="keyboard">
+        <!-- Клавіатура -->
+        <div class="key" onclick="addNumber(1)">1</div>
+        <div class="key" onclick="addNumber(2)">2</div>
+        <div class="key" onclick="addNumber(3)">3</div>
+        <div class="key" onclick="addNumber(4)">4</div>
+        <div class="key" onclick="addNumber(5)">5</div>
+        <div class="key" onclick="addNumber(6)">6</div>
+        <div class="key" onclick="addNumber(7)">7</div>
+        <div class="key" onclick="addNumber(8)">8</div>
+        <div class="key" onclick="addNumber(9)">9</div>
+        <div class="key" onclick="clearAll()">C</div>
+        <div class="key" onclick="addNumber(0)">0</div>
+        <div class="key" onclick="deleteLast()">⌫</div>
+    </div>
+
+    <div class="action-buttons">
+        <button onclick="nextColumn()">Próximo</button>
+    </div>
+
+    <script>
+        let activeInput = document.getElementById("col0"); // Додаткова колонка активна за замовчуванням
+
+        // Установлення активного поля при кліку на нього
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("click", () => {
+                activeInput = input;
+            });
+        });
+
+        // Додавання цифри в активне поле
+        function addNumber(num) {
+            if (activeInput) {
+                activeInput.value += num;
+                checkAndCalculate(); // Перевірити та обчислити, якщо всі колонки заповнені
+            }
+        }
+
+        // Очищення всіх полів
+        function clearAll() {
+            document.querySelectorAll("input").forEach(input => {
+                input.value = "";
+            });
+            document.getElementById("result-box").textContent = "Результат: ---";
+        }
+
+        // Видалення останньої цифри
+        function deleteLast() {
+            if (activeInput) {
+                activeInput.value = activeInput.value.slice(0, -1);
+            }
+        }
+
+        // Автоматичне обчислення, якщо всі колонки заповнені
+        function checkAndCalculate() {
+            const col1 = document.getElementById("col1").value;
+            const col2 = document.getElementById("col2").value;
+            const col3 = document.getElementById("col3").value;
+
+            if (col1 && col2 && col3) {
+                calculate();
+            }
+        }
+
+        // Обчислення формули
+        function calculate() {
+            const col1Value = parseFloat(document.getElementById("col1").value);
+            const col2Value = parseFloat(document.getElementById("col2").value);
+            const col3Value = parseFloat(document.getElementById("col3").value);
+
+            if (isNaN(col1Value) || isNaN(col2Value) || isNaN(col3Value) || col1Value === 0 || col3Value === 0) {
+                document.getElementById("result-box").textContent = "Помилка: перевірте введені значення!";
+                return;
+            }
+
+            const result = (col2Value / col1Value / col3Value) * 100;
+            document.getElementById("result-box").textContent = ` ${result.toFixed(2)}%`;
+        }
+
+        // Перехід до наступної колонки
+        function nextColumn() {
+            const inputs = ["col0", "col1", "col2", "col3"];
+            const currentIndex = inputs.indexOf(activeInput.id);
+            const nextIndex = (currentIndex + 1) % inputs.length;
+            activeInput = document.getElementById(inputs[nextIndex]);
+            activeInput.focus(); // Зосередити увагу на наступній колонці
+        }
+    </script>
+</body>
+</html>
