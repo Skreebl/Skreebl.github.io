@@ -155,15 +155,15 @@
         }
 
         // Очищення всіх полів
-        function clearAll() {
-            document.querySelectorAll("input").forEach(input => {
-                input.value = "";
-            });
-            document.getElementById("result-box").textContent = "Результат: ---";
-            activeInput =
-	        document.getElementById("col0");
-	        activeInput.focus();       
-        }
+        // Очищення всіх полів і повернення фокусу на початкову колонку
+function clearAll() {
+    document.querySelectorAll("input").forEach(input => {
+        input.value = "";
+    });
+    document.getElementById("result-box").textContent = "Результат: ---";
+    activeInput = document.getElementById("col0");
+    activeInput.focus(); // Зосередження уваги на початковому полі
+}
 
         // Видалення останньої цифри
         function deleteLast() {
