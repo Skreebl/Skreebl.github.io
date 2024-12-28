@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автоматичне обчислення</title>
+    <title>Rega</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,7 +98,7 @@
             <label for="col0">VALVULA</label>
             <input type="number" id="col0" placeholder=" - " readonly>
         </div>
-        <!-- Основні колонки -->
+        <!-- células -->
         <div class="columns">
             <div class="column">
                 <label for="col1">Entrada</label>
@@ -114,10 +114,10 @@
             </div>
         </div>
     </div>
-    <div id="result-box"> % de drenagem : ---</div>
+    <div id="result-box"> Introduza os dados </div>
 
     <div class="keyboard">
-        <!-- Клавіатура -->
+        <!-- Keyboard -->
         <div class="key" onclick="addNumber(1)">1</div>
         <div class="key" onclick="addNumber(2)">2</div>
         <div class="key" onclick="addNumber(3)">3</div>
@@ -137,42 +137,40 @@
     </div>
 
     <script>
-        let activeInput = document.getElementById("col0"); // Додаткова колонка активна за замовчуванням
+        let activeInput = document.getElementById("col0"); 
 
-        // Установлення активного поля при кліку на нього
         document.querySelectorAll("input").forEach(input => {
             input.addEventListener("click", () => {
                 activeInput = input;
             });
         });
 
-        // Додавання цифри в активне поле
+        
         function addNumber(num) {
             if (activeInput) {
                 activeInput.value += num;
-                checkAndCalculate(); // Перевірити та обчислити, якщо всі колонки заповнені
+                checkAndCalculate(); 
             }
         }
 
-        // Очищення всіх полів
-        // Очищення всіх полів і повернення фокусу на початкову колонку
+        
 function clearAll() {
     document.querySelectorAll("input").forEach(input => {
         input.value = "";
     });
-    document.getElementById("result-box").textContent = "Результат: ---";
+    document.getElementById("result-box").textContent = "Resultado: ---";
     activeInput = document.getElementById("col0");
-    activeInput.focus(); // Зосередження уваги на початковому полі
+    activeInput.focus(); 
 }
 
-        // Видалення останньої цифри
+        
         function deleteLast() {
             if (activeInput) {
                 activeInput.value = activeInput.value.slice(0, -1);
             }
         }
 
-        // Автоматичне обчислення, якщо всі колонки заповнені
+        
         function checkAndCalculate() {
             const col1 = document.getElementById("col1").value;
             const col2 = document.getElementById("col2").value;
@@ -183,14 +181,14 @@ function clearAll() {
             }
         }
 
-        // Обчислення формули
+        
         function calculate() {
             const col1Value = parseFloat(document.getElementById("col1").value);
             const col2Value = parseFloat(document.getElementById("col2").value);
             const col3Value = parseFloat(document.getElementById("col3").value);
 
             if (isNaN(col1Value) || isNaN(col2Value) || isNaN(col3Value) || col1Value === 0 || col3Value === 0) {
-                document.getElementById("result-box").textContent = "Помилка: перевірте введені значення!";
+                document.getElementById("result-box").textContent = "ERROR!";
                 return;
             }
 
@@ -198,13 +196,13 @@ function clearAll() {
             document.getElementById("result-box").textContent = ` ${result.toFixed(2)}%`;
         }
 
-        // Перехід до наступної колонки
+        
         function nextColumn() {
             const inputs = ["col0", "col1", "col2", "col3"];
             const currentIndex = inputs.indexOf(activeInput.id);
             const nextIndex = (currentIndex + 1) % inputs.length;
             activeInput = document.getElementById(inputs[nextIndex]);
-            activeInput.focus(); // Зосередити увагу на наступній колонці
+            activeInput.focus(); 
         }
     </script>
 </body>
