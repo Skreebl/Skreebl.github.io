@@ -73,26 +73,32 @@
         }
         .action-buttons {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             gap: 10px;
             margin-top: 10px;
+            width: 100%;
         }
         .action-buttons button {
-            padding: 20px 140px;
+            padding: 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             background-color: #007bff;
             color: white;
             border: none;
+            text-align: center;
         }
         .action-buttons button:active {
             background-color: #0056b3;
         }
+        .screenshot-button button {
+            background-color: #28a745;
+        }
+        .screenshot-button button:active {
+            background-color: #218838;
+        }
     </style>
-    <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#000000">
-    <link rel="icon" type="image/png" href="/icon-192x192.png">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
 </head>
 <body>
     <div class="container">
@@ -137,6 +143,7 @@
 
     <div class="action-buttons">
         <button onclick="nextColumn()">Próximo</button>
+        <button id="screenshot-btn" class="screenshot-button">Зробити скріншот</button>
     </div>
 
     <script>
@@ -148,7 +155,6 @@
             });
         });
 
-        
         function addNumber(num) {
             if (activeInput) {
                 activeInput.value += num;
@@ -156,24 +162,21 @@
             }
         }
 
-        
-function clearAll() {
-    document.querySelectorAll("input").forEach(input => {
-        input.value = "";
-    });
-    document.getElementById("result-box").textContent = "Resultado: ---";
-    activeInput = document.getElementById("col0");
-    activeInput.focus(); 
-}
+        function clearAll() {
+            document.querySelectorAll("input").forEach(input => {
+                input.value = "";
+            });
+            document.getElementById("result-box").textContent = "Resultado: ---";
+            activeInput = document.getElementById("col0");
+            activeInput.focus(); 
+        }
 
-        
         function deleteLast() {
             if (activeInput) {
                 activeInput.value = activeInput.value.slice(0, -1);
             }
         }
 
-        
         function checkAndCalculate() {
             const col1 = document.getElementById("col1").value;
             const col2 = document.getElementById("col2").value;
@@ -184,7 +187,6 @@ function clearAll() {
             }
         }
 
-        
         function calculate() {
             const col1Value = parseFloat(document.getElementById("col1").value);
             const col2Value = parseFloat(document.getElementById("col2").value);
@@ -199,7 +201,6 @@ function clearAll() {
             document.getElementById("result-box").textContent = ` ${result.toFixed(2)}%`;
         }
 
-        
         function nextColumn() {
             const inputs = ["col0", "col1", "col2", "col3"];
             const currentIndex = inputs.indexOf(activeInput.id);
@@ -207,12 +208,15 @@ function clearAll() {
             activeInput = document.getElementById(inputs[nextIndex]);
             activeInput.focus(); 
         }
-        
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(() => console.log('Service Worker зареєстровано'))
-      .catch((error) => console.error('Помилка реєстрації Service Worker:', error));
-  }
+
+        document.getElementById("screenshot-btn").addEventListener("click", function () {
+            html2canvas(document.body).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "screenshot.png";
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        });
     </script>
 </body>
 </html>
