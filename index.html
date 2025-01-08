@@ -206,6 +206,12 @@ function clearAll() {
             activeInput = document.getElementById(inputs[nextIndex]);
             activeInput.focus(); 
         }
+        
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('Service Worker зареєстровано'))
+      .catch((error) => console.error('Помилка реєстрації Service Worker:', error));
+  }
     </script>
 </body>
 </html>
