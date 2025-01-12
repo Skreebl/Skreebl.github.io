@@ -210,10 +210,18 @@
         }
 
         document.getElementById("screenshot-btn").addEventListener("click", function () {
-            html2canvas(document.body).then(canvas => {
-                const link = document.createElement("a");
-                link.download = "screenshot.png";
-                link.href = canvas.toDataURL();
+      html2canvas(document.body).then(canvas => {
+        // Створення зображення
+        const imageData = canvas.toDataURL("image/png");
+
+        // Генерація дати та часу
+        const now = new Date();
+        const timestamp = now.toISOString().replace(/[:.-]/g, "_"); // Формат YYYY-MM-DD_HH_MM_SS
+
+        // Створення посилання для завантаження
+        const link = document.createElement("a");
+        link.download = `screenshot_${timestamp}.png`; // Ім'я файлу з часом
+        link.href = imageData;
                 link.click();
             });
         });
