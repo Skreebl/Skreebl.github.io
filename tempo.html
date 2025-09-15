@@ -139,15 +139,15 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
         <!-- células -->
         <div class="columns">
             <div class="column">
-                <label for="col1">Entrada</label>
+                <label for="col1">EC novo</label>
                 <input type="number" id="col1" placeholder=" - " readonly>
             </div>
             <div class="column">
-                <label for="col2">Saida</label>
+                <label for="col2">L/m³ atual</label>
                 <input type="number" id="col2" placeholder=" - " readonly>
             </div>
             <div class="column">
-                <label for="col3">Vasos</label>
+                <label for="col3">EC atual</label>
                 <input type="number" id="col3" placeholder=" - " readonly>
             </div>
         </div>
@@ -227,7 +227,7 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
                 return;
             }
 
-            const result = (col2Value / col1Value / col3Value) * 100;
+            const result = (col2Value * col1Value) / col3Value;
             document.getElementById("result-box").textContent = ` ${result.toFixed(2)}%`;
         }
 
@@ -260,6 +260,7 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
     
 </body>
 </html>
+
 
 
 
