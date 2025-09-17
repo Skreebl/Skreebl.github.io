@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora EC</title>
+    <title>Rega</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
             margin: 0;
             background-color: #f9f9f9;
         }
         .time {
-            margin-top: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,7 +31,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
             align-items: center;
             width: 75%;
         }
@@ -110,92 +111,94 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
-<link rel="manifest" href="manifest.json" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="application-name" content="PWA Workshop" />
-<meta name="apple-mobile-web-app-title" content="PWA Workshop" />
-<meta name="msapplication-starturl" content="/index.html" />
-<meta name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no"
-/>
 </head>
 <body>
-      <div class="container">
+        <div class="time">
+            <a href="https://24timezones.com" style="text-decoration: none" class="clock24" id="tz24-1757844616-c1133-eyJob3VydHlwZSI6IjI0Iiwic2hvd2RhdGUiOiIxIiwic2hvd3NlY29uZHMiOiIxIiwic2hvd3RpbWV6b25lIjoiMCIsInR5cGUiOiJkIiwibGFuZyI6InB0In0=" title="Relógio" target="_blank" rel="nofollow"></a>
+<script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
+          </div>  
+    
+        <div class="container">
+        <!-- VALVULA -->
+        <div class="column">
+            <label for="col0">VALVULA</label>
+            <input type="number" id="col0" placeholder=" - " readonly>
+        </div>
         <!-- células -->
         <div class="columns">
             <div class="column">
-                <label for="col1">EC novo</label>
+                <label for="col1">Entrada</label>
                 <input type="number" id="col1" placeholder=" - " readonly>
             </div>
             <div class="column">
-                <label for="col2">L/m³ atual</label>
+                <label for="col2">Saida</label>
                 <input type="number" id="col2" placeholder=" - " readonly>
             </div>
-          <div class="column">
-                <label for="col3">EC atual</label>
+            <div class="column">
+                <label for="col3">Vasos</label>
                 <input type="number" id="col3" placeholder=" - " readonly>
             </div>
-             <br>
         </div>
             <div id="result-box"> Introduza os dados </div>
     </div>
     
 
-<div class="keyboard">
-    <!-- Keyboard -->
-    <div class="key" onclick="addNumber(1)">1</div>
-    <div class="key" onclick="addNumber(2)">2</div>
-    <div class="key" onclick="addNumber(3)">3</div>
-    <div class="key" onclick="addNumber(4)">4</div>
-    <div class="key" onclick="addNumber(5)">5</div>
-    <div class="key" onclick="addNumber(6)">6</div>
-    <div class="key" onclick="addNumber(7)">7</div>
-    <div class="key" onclick="addNumber(8)">8</div>
-    <div class="key" onclick="addNumber(9)">9</div>
-    <div class="key" onclick="addDot()">.</div> <!-- Замінили на крапку -->
-    <div class="key" onclick="addNumber(0)">0</div>
-    <div class="key" onclick="deleteLast()">⌫</div>
-</div>
+    <div class="keyboard">
+        <!-- Keyboard -->
+        <div class="key" onclick="addNumber(1)">1</div>
+        <div class="key" onclick="addNumber(2)">2</div>
+        <div class="key" onclick="addNumber(3)">3</div>
+        <div class="key" onclick="addNumber(4)">4</div>
+        <div class="key" onclick="addNumber(5)">5</div>
+        <div class="key" onclick="addNumber(6)">6</div>
+        <div class="key" onclick="addNumber(7)">7</div>
+        <div class="key" onclick="addNumber(8)">8</div>
+        <div class="key" onclick="addNumber(9)">9</div>
+        <div class="key" onclick="clearAll()">C</div>
+        <div class="key" onclick="addNumber(0)">0</div>
+        <div class="key" onclick="deleteLast()">⌫</div>
+    </div>
 
-<div class="action-buttons">
-    <button onclick="nextColumn()">Próximo</button>
-    <button id="screenshot-btn" class="screenshot-button">Screenshot</button>
-</div>
+    <div class="action-buttons">
+        <button onclick="nextColumn()">Próximo</button>
+        <button id="screenshot-btn" class="screenshot-button">Screenshot</button>
+    </div>
+
     <script>
-let activeInput = document.getElementById("col0");
+        let activeInput = document.getElementById("col0"); 
 
-document.querySelectorAll("input").forEach(input => {
-    input.addEventListener("click", () => {
-        activeInput = input;
-    });
-});
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("click", () => {
+                activeInput = input;
+            });
+        });
 
-function addNumber(num) {
-    if (activeInput) {
-        activeInput.value += num;
-        checkAndCalculate();
-    }
-}
+        function addNumber(num) {
+            if (activeInput) {
+                activeInput.value += num;
+                checkAndCalculate(); 
+            }
+        }
 
-function addDot() {
-    if (activeInput && !activeInput.value.includes('.')) { // Додаємо крапку лише, якщо її ще немає
-        activeInput.value += '.';
-        checkAndCalculate();
-    }
-}
+        function clearAll() {
+            document.querySelectorAll("input").forEach(input => {
+                input.value = "";
+            });
+            document.getElementById("result-box").textContent = "Resultado: ---";
+            activeInput = document.getElementById("col0");
+            activeInput.focus(); 
+        }
 
-function deleteLast() {
-    if (activeInput) {
-        activeInput.value = activeInput.value.slice(0, -1);
-    }
-}
+        function deleteLast() {
+            if (activeInput) {
+                activeInput.value = activeInput.value.slice(0, -1);
+            }
+        }
 
-function checkAndCalculate() {
-    const value = activeInput.value;
-    // Можна зробити додаткові перевірки або розрахунки тут, якщо потрібно
-    document.getElementById("result-box").textContent = `Resultado: ${value}`;
-}
+        function checkAndCalculate() {
+            const col1 = document.getElementById("col1").value;
+            const col2 = document.getElementById("col2").value;
+            const col3 = document.getElementById("col3").value;
 
             if (col1 && col2 && col3) {
                 calculate();
@@ -212,7 +215,7 @@ function checkAndCalculate() {
                 return;
             }
 
-            const result = (col2Value * col1Value) / col3Value;
+            const result = (col2Value / col1Value / col3Value) * 100;
             document.getElementById("result-box").textContent = ` ${result.toFixed(2)}%`;
         }
 
@@ -240,24 +243,7 @@ function checkAndCalculate() {
                 link.click();
             });
         });
-
     </script>
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
