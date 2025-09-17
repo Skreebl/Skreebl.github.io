@@ -153,7 +153,7 @@
         <div class="key" onclick="addNumber(7)">7</div>
         <div class="key" onclick="addNumber(8)">8</div>
         <div class="key" onclick="addNumber(9)">9</div>
-        <div class="key" onclick="addNumber(&middot;)">.</div>
+        <div class="key" onclick="addDot()">.</div>
         <div class="key" onclick="addNumber(0)">0</div>
         <div class="key" onclick="deleteLast()">⌫</div>
     </div>
@@ -176,6 +176,12 @@
             if (activeInput) {
                 activeInput.value += num;
                 checkAndCalculate(); 
+            }
+        }
+        function addDot() {
+            if (activeInput && !activeInput.value.includes('.')) { // Додаємо крапку лише, якщо її ще немає
+                activeInput.value += '.';
+                checkAndCalculate();
             }
         }
 
@@ -247,6 +253,7 @@
     
 </body>
 </html>
+
 
 
 
