@@ -187,12 +187,7 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
                 checkAndCalculate(); 
             }
         }
-function addDot(&middot;) {
-            if (activeInput) {
-                activeInput.value += &middot; ;
-                checkAndCalculate(); 
-            }
-        }
+
         function clearAll() {
             document.querySelectorAll("input").forEach(input => {
                 input.value = "";
@@ -261,6 +256,7 @@ function addDot(&middot;) {
     
 </body>
 </html>
+
 
 
 
