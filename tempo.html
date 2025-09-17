@@ -162,7 +162,7 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
         <div class="key" onclick="addNumber(7)">7</div>
         <div class="key" onclick="addNumber(8)">8</div>
         <div class="key" onclick="addNumber(9)">9</div>
-        <div class="key" onclick="addDot()">Добавить точку</div>
+        <div class="key" onclick="addDot(&middot;)">.</div>
         <div class="key" onclick="addNumber(0)">0</div>
         <div class="key" onclick="deleteLast()">⌫</div>
     </div>
@@ -187,7 +187,12 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
                 checkAndCalculate(); 
             }
         }
-
+function addDot(&middot;) {
+            if (activeInput) {
+                activeInput.value += &middot; ;
+                checkAndCalculate(); 
+            }
+        }
         function clearAll() {
             document.querySelectorAll("input").forEach(input => {
                 input.value = "";
@@ -256,6 +261,7 @@ time_is_widget.init({Lisbon_z714:{template:"TIME DATE", date_format:"daynum/mont
     
 </body>
 </html>
+
 
 
 
