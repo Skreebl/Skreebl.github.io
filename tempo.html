@@ -144,20 +144,20 @@
     
 
     <div class="keyboard">
-        <!-- Keyboard -->
-        <div class="key" onclick="addNumber(1)">1</div>
-        <div class="key" onclick="addNumber(2)">2</div>
-        <div class="key" onclick="addNumber(3)">3</div>
-        <div class="key" onclick="addNumber(4)">4</div>
-        <div class="key" onclick="addNumber(5)">5</div>
-        <div class="key" onclick="addNumber(6)">6</div>
-        <div class="key" onclick="addNumber(7)">7</div>
-        <div class="key" onclick="addNumber(8)">8</div>
-        <div class="key" onclick="addNumber(9)">9</div>
-         <div class="key" onclick="addDot(&middot;)">.</div>
-        <div class="key" onclick="addNumber(0)">0</div>
-        <div class="key" onclick="deleteLast()">⌫</div>
-    </div>
+    <!-- Keyboard -->
+    <div class="key" onclick="addNumber(1)">1</div>
+    <div class="key" onclick="addNumber(2)">2</div>
+    <div class="key" onclick="addNumber(3)">3</div>
+    <div class="key" onclick="addNumber(4)">4</div>
+    <div class="key" onclick="addNumber(5)">5</div>
+    <div class="key" onclick="addNumber(6)">6</div>
+    <div class="key" onclick="addNumber(7)">7</div>
+    <div class="key" onclick="addNumber(8)">8</div>
+    <div class="key" onclick="addNumber(9)">9</div>
+    <div class="key" onclick="addDot()">.</div> <!-- Замінили на крапку -->
+    <div class="key" onclick="addNumber(0)">0</div>
+    <div class="key" onclick="deleteLast()">⌫</div>
+</div>
 
     <div class="action-buttons">
         <button onclick="nextColumn()">Próximo</button>
@@ -171,45 +171,42 @@
         checkAndCalculate();
     }
 }
-        let activeInput = document.getElementById("col0"); 
+        let activeInput = document.getElementById("col0"); // Початково активне поле
 
-        document.querySelectorAll("input").forEach(input => {
-            input.addEventListener("click", () => {
-                activeInput = input;
-            });
-        });
+// Кожен раз при натисканні на інпут встановлюється активне поле
+document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("click", () => {
+        activeInput = input;
+    });
+});
 
-        function addNumber(num) {
-            if (activeInput) {
-                activeInput.value += num;
-                checkAndCalculate(); 
-            }
-        }
+function addNumber(num) {
+    if (activeInput) {
+        activeInput.value += num;
+        checkAndCalculate(); // Оновлюємо результат
+    }
+}
 
-        function clearAll() {
-            document.querySelectorAll("input").forEach(input => {
-                input.value = "";
-            });
-            document.getElementById("result-box").textContent = "Resultado: ---";
-            activeInput = document.getElementById("col0");
-            activeInput.focus(); 
-        }
+function addDot() {
+    // Додаємо крапку лише, якщо її ще немає в значенні
+    if (activeInput && !activeInput.value.includes('.')) {
+        activeInput.value += '.';
+        checkAndCalculate(); // Оновлюємо результат
+    }
+}
 
-        function deleteLast() {
-            if (activeInput) {
-                activeInput.value = activeInput.value.slice(0, -1);
-            }
-        }
+function deleteLast() {
+    if (activeInput) {
+        activeInput.value = activeInput.value.slice(0, -1); // Видаляємо останній символ
+        checkAndCalculate(); // Оновлюємо результат
+    }
+}
 
-        function checkAndCalculate() {
-            const col1 = document.getElementById("col1").value;
-            const col2 = document.getElementById("col2").value;
-            const col3 = document.getElementById("col3").value;
-
-            if (col1 && col2 && col3) {
-                calculate();
-            }
-        }
+function checkAndCalculate() {
+    const value = activeInput.value;
+    // Можна додати логіку для обчислень або перевірки значення
+    document.getElementById("result-box").textContent = `Resultado: ${value}`;
+}
 
         function calculate() {
             const col1Value = parseFloat(document.getElementById("col1").value);
@@ -253,6 +250,7 @@
     
 </body>
 </html>
+
 
 
 
