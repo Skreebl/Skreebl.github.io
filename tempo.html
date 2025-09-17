@@ -142,68 +142,60 @@
     </div>
     
 
-    <div class="keyboard">
-        <!-- Keyboard -->
-        <div class="key" onclick="addNumber(1)">1</div>
-        <div class="key" onclick="addNumber(2)">2</div>
-        <div class="key" onclick="addNumber(3)">3</div>
-        <div class="key" onclick="addNumber(4)">4</div>
-        <div class="key" onclick="addNumber(5)">5</div>
-        <div class="key" onclick="addNumber(6)">6</div>
-        <div class="key" onclick="addNumber(7)">7</div>
-        <div class="key" onclick="addNumber(8)">8</div>
-        <div class="key" onclick="addNumber(9)">9</div>
-        <div class="key" onclick="addDot()">.</div>
-        <div class="key" onclick="addNumber(0)">0</div>
-        <div class="key" onclick="deleteLast()">⌫</div>
-    </div>
+<div class="keyboard">
+    <!-- Keyboard -->
+    <div class="key" onclick="addNumber(1)">1</div>
+    <div class="key" onclick="addNumber(2)">2</div>
+    <div class="key" onclick="addNumber(3)">3</div>
+    <div class="key" onclick="addNumber(4)">4</div>
+    <div class="key" onclick="addNumber(5)">5</div>
+    <div class="key" onclick="addNumber(6)">6</div>
+    <div class="key" onclick="addNumber(7)">7</div>
+    <div class="key" onclick="addNumber(8)">8</div>
+    <div class="key" onclick="addNumber(9)">9</div>
+    <div class="key" onclick="addDot()">.</div> <!-- Замінили на крапку -->
+    <div class="key" onclick="addNumber(0)">0</div>
+    <div class="key" onclick="deleteLast()">⌫</div>
+</div>
 
-    <div class="action-buttons">
-        <button onclick="nextColumn()">Próximo</button>
-        <button id="screenshot-btn" class="screenshot-button">Screenshot</button>
-    </div>
-
+<div class="action-buttons">
+    <button onclick="nextColumn()">Próximo</button>
+    <button id="screenshot-btn" class="screenshot-button">Screenshot</button>
+</div>
     <script>
-        let activeInput = document.getElementById("col0"); 
+let activeInput = document.getElementById("col0");
 
-        document.querySelectorAll("input").forEach(input => {
-            input.addEventListener("click", () => {
-                activeInput = input;
-            });
-        });
+document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("click", () => {
+        activeInput = input;
+    });
+});
 
-        function addNumber(num) {
-            if (activeInput) {
-                activeInput.value += num;
-                checkAndCalculate(); 
-            }
-        }
-        function addDot() {
-            if (activeInput && !activeInput.value.includes('.')) { // Додаємо крапку лише, якщо її ще немає
-                activeInput.value += '.';
-                checkAndCalculate();
-            }
-        }
+function addNumber(num) {
+    if (activeInput) {
+        activeInput.value += num;
+        checkAndCalculate();
+    }
+}
 
-        function clearAll() {
-            document.querySelectorAll("input").forEach(input => {
-                input.value = "";
-            });
-            document.getElementById("result-box").textContent = "Resultado: ---";
-            activeInput = document.getElementById("col0");
-            activeInput.focus(); 
-        }
+function addDot() {
+    if (activeInput && !activeInput.value.includes('.')) { // Додаємо крапку лише, якщо її ще немає
+        activeInput.value += '.';
+        checkAndCalculate();
+    }
+}
 
-        function deleteLast() {
-            if (activeInput) {
-                activeInput.value = activeInput.value.slice(0, -1);
-            }
-        }
+function deleteLast() {
+    if (activeInput) {
+        activeInput.value = activeInput.value.slice(0, -1);
+    }
+}
 
-        function checkAndCalculate() {
-            const col1 = document.getElementById("col1").value;
-            const col2 = document.getElementById("col2").value;
-            const col3 = document.getElementById("col3").value;
+function checkAndCalculate() {
+    const value = activeInput.value;
+    // Можна зробити додаткові перевірки або розрахунки тут, якщо потрібно
+    document.getElementById("result-box").textContent = `Resultado: ${value}`;
+}
 
             if (col1 && col2 && col3) {
                 calculate();
@@ -253,6 +245,7 @@
     
 </body>
 </html>
+
 
 
 
