@@ -39,6 +39,31 @@
             z-index: 10;
         }
 
+        /* Language Selector Styles */
+        #lang-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+        }
+
+        .lang-btn {
+            color: #0ff;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover {
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            color: #f0f;
+            text-shadow: 0 0 5px #f0f;
+        }
+
         h1, h2 {
             font-family: 'Press Start 2P', cursive;
             color: #fff;
@@ -47,6 +72,10 @@
             margin-bottom: 30px;
             font-size: 24px;
             line-height: 1.5;
+        }
+
+        h1 {
+            margin-top: 20px;
         }
 
         h2 {
@@ -146,50 +175,56 @@
 <body>
 
     <div id="start-screen">
-        <button id="start-btn">INICIAR SISTEMA</button>
+        <button id="start-btn" data-i18n="startBtn">INICIAR SISTEMA</button>
     </div>
 
     <div class="container" id="main-content">
         
+        <div id="lang-selector">
+            <span class="lang-btn active" data-lang="pt" onclick="changeLang('pt')">[PT]</span>
+            <span class="lang-btn" data-lang="en" onclick="changeLang('en')">[EN]</span>
+            <span class="lang-btn" data-lang="uk" onclick="changeLang('uk')">[UK]</span>
+        </div>
+
         <h1>YURII IVANYTSKYI <br> <span style="font-size: 12px; color: #aaa;">[ SYSTEM OVERRIDE ]</span></h1>
 
         <div class="bio-box">
-            <p>> <strong>Estado:</strong> Online<br>
+            <p data-i18n="bio1">> <strong>Estado:</strong> Online<br>
             > <strong>Localização:</strong> Portugal<br>
             > <strong>Especialização:</strong> Engenharia, automação, desenvolvimento web prático.</p>
             
-            <p>O meu credo é pegar em problemas rotineiros complexos e construir soluções simples para eles. Trabalhando com sistemas de rega automatizados, estufas e maquinaria, habituei-me a ver como e onde o processo pode ser otimizado. Para mim não há diferença entre reparar ou criar - seja o motor de um carro ou a estrutura de uma base de dados.</p>
+            <p data-i18n="bio2">O meu credo é pegar em problemas rotineiros complexos e construir soluções simples para eles. Trabalhando com sistemas de rega automatizados, estufas e maquinaria, habituei-me a ver como e onde o processo pode ser otimizado. Para mim não há diferença entre reparar ou criar - seja o motor de um carro ou a estrutura de uma base de dados.</p>
             
-            <p>A criação de aplicações web é o meu hobby, que traz benefícios reais. Não escrevo código só por escrever. Crio ferramentas leves, rápidas e fiáveis que podem ser abertas num telemóvel no meio do campo, onde se inserem os dados para obter instantaneamente o resultado, poupando horas de trabalho.<span class="cursor">_</span></p>
+            <p data-i18n="bio3">A criação de aplicações web é o meu hobby, que traz benefícios reais. Não escrevo código só por escrever. Crio ferramentas leves, rápidas e fiáveis que podem ser abertas num telemóvel no meio do campo, onde se inserem os dados para obter instantaneamente o resultado, poupando horas de trabalho.<span class="cursor">_</span></p>
         </div>
 
-        <h2>> RESUMO DOS PROJETOS</h2>
+        <h2 data-i18n="projTitle">> RESUMO DOS PROJETOS</h2>
 
         <div class="project">
             <div class="project-title">1. BoraRegar</div>
-            <p>Calculadora de rega e drenagem. Criada para otimizar os cálculos no local de trabalho. Permite calcular rapidamente as normas sem papéis desnecessários e tabelas complexas.</p>
-            <a href="https://skreebl.github.io/BoraRegar/" target="_blank">[ ABRIR PROJETO ]</a>
+            <p data-i18n="p1Desc">Calculadora de rega e drenagem. Criada para otimizar os cálculos no local de trabalho. Permite calcular rapidamente as normas sem papéis desnecessários e tabelas complexas.</p>
+            <a href="https://skreebl.github.io/BoraRegar/" target="_blank" data-i18n="openBtn">[ ABRIR PROJETO ]</a>
         </div>
 
         <div class="project">
             <div class="project-title">2. Draincalc</div>
-            <p>Calculadora de percentagem de drenagem. Uma ferramenta rápida e precisa para controlar os níveis de drenagem nos sistemas de rega, facilitando a gestão diária.</p>
-            <a href="https://skreebl.github.io/Draincalc/" target="_blank">[ ABRIR PROJETO ]</a>
+            <p data-i18n="p2Desc">Calculadora de percentagem de drenagem. Uma ferramenta rápida e precisa para controlar os níveis de drenagem nos sistemas de rega, facilitando a gestão diária.</p>
+            <a href="https://skreebl.github.io/Draincalc/" target="_blank" data-i18n="openBtn">[ ABRIR PROJETO ]</a>
         </div>
 
         <div class="project">
-            <div class="project-title">3. Gerador de Códigos de Barras</div>
-            <p>​Gerador web leve e simples para códigos de barras. Transforma os dados inseridos num código de barras perfeitamente gerado no formato CODE39 com download automático da imagem. Funciona localmente no browser.</p>
-            <a href="https://skreebl.github.io/Barcode/" target="_blank">[ ABRIR PROJETO ]</a>
+            <div class="project-title">3. Barcode Generator</div>
+            <p data-i18n="p3Desc">Gerador web leve e simples para códigos de barras. Transforma os dados inseridos num código de barras perfeitamente gerado no formato CODE39 com download automático da imagem. Funciona localmente no browser.</p>
+            <a href="https://skreebl.github.io/Barcode/" target="_blank" data-i18n="openBtn">[ ABRIR PROJETO ]</a>
         </div>
 
         <div class="project">
             <div class="project-title">4. Windbot</div>
-            <p>Sistema automatizado de arquivo meteorológico para a região da Zambujeira do Mar. Guarda capturas de ecrã diárias do Windguru e IPMA, criando um histórico fiável para consulta e monitorização das condições locais.</p>
-            <a href="https://skreebl.github.io/Windbot/" target="_blank">[ ABRIR PROJETO ]</a>
+            <p data-i18n="p4Desc">Sistema automatizado de arquivo meteorológico para a região da Zambujeira do Mar. Guarda capturas de ecrã diárias do Windguru e IPMA, criando um histórico fiável para consulta e monitorização das condições locais.</p>
+            <a href="https://skreebl.github.io/Windbot/" target="_blank" data-i18n="openBtn">[ ABRIR PROJETO ]</a>
         </div>
 
-        <div style="text-align: center; margin-top: 50px; color: #555; font-size: 14px;">
+        <div style="text-align: center; margin-top: 50px; color: #555; font-size: 14px;" data-i18n="eof">
             > FIM DO FICHEIRO <br>
             > 2026
         </div>
@@ -197,10 +232,10 @@
 
     <audio id="bg-music" loop>
         <source src="keygen.mp3" type="audio/mpeg">
-        O seu browser não suporta áudio.
     </audio>
 
     <script>
+        // Start screen logic
         document.getElementById('start-btn').addEventListener('click', function() {
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
@@ -208,9 +243,75 @@
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
             music.play().catch(function(error) {
-                console.log("Auto-play bloqueado, mas a página funciona.");
+                console.log("Auto-play blocked, but page works.");
             });
         });
+
+        // Translation Dictionary
+        const translations = {
+            pt: {
+                startBtn: "INICIAR SISTEMA",
+                bio1: "> <strong>Estado:</strong> Online<br>> <strong>Localização:</strong> Portugal<br>> <strong>Especialização:</strong> Engenharia, automação, desenvolvimento web prático.",
+                bio2: "O meu credo é pegar em problemas rotineiros complexos e construir soluções simples para eles. Trabalhando com sistemas de rega automatizados, estufas e maquinaria, habituei-me a ver como e onde o processo pode ser otimizado. Para mim não há diferença entre reparar ou criar - seja o motor de um carro ou a estrutura de uma base de dados.",
+                bio3: "A criação de aplicações web é o meu hobby, que traz benefícios reais. Não escrevo código só por escrever. Crio ferramentas leves, rápidas e fiáveis que podem ser abertas num telemóvel no meio do campo, onde se inserem os dados para obter instantaneamente o resultado, poupando horas de trabalho.<span class=\"cursor\">_</span>",
+                projTitle: "> RESUMO DOS PROJETOS",
+                p1Desc: "Calculadora de rega e drenagem. Criada para otimizar os cálculos no local de trabalho. Permite calcular rapidamente as normas sem papéis desnecessários e tabelas complexas.",
+                p2Desc: "Calculadora de percentagem de drenagem. Uma ferramenta rápida e precisa para controlar os níveis de drenagem nos sistemas de rega, facilitando a gestão diária.",
+                p3Desc: "Gerador web leve e simples para códigos de barras. Transforma os dados inseridos num código de barras perfeitamente gerado no formato CODE39 com download automático da imagem. Funciona localmente no browser.",
+                p4Desc: "Sistema automatizado de arquivo meteorológico para a região da Zambujeira do Mar. Guarda capturas de ecrã diárias do Windguru e IPMA, criando um histórico fiável para consulta e monitorização das condições locais.",
+                openBtn: "[ ABRIR PROJETO ]",
+                eof: "> FIM DO FICHEIRO <br>> 2026"
+            },
+            en: {
+                startBtn: "INITIATE SYSTEM",
+                bio1: "> <strong>Status:</strong> Online<br>> <strong>Location:</strong> Portugal<br>> <strong>Specialization:</strong> Engineering, automation, practical web development.",
+                bio2: "My credo is to take complex routine problems and build simple solutions for them. Working with automated irrigation systems, greenhouses, and machinery, I am used to seeing how and where processes can be optimized. For me, there is no difference between repairing or creating - whether it's a car engine or a database structure.",
+                bio3: "Creating web applications is my hobby that brings real benefits. I don't write code just to write code. I create lightweight, fast, and reliable tools that can be opened on a smartphone in the middle of a field, where data is entered to instantly get a result, saving hours of work.<span class=\"cursor\">_</span>",
+                projTitle: "> PROJECTS SUMMARY",
+                p1Desc: "Irrigation and drainage calculator. Created to optimize calculations on site. Allows quick calculation of rates without unnecessary papers and complex tables.",
+                p2Desc: "Drainage percentage calculator. A fast and accurate tool for monitoring drainage levels in irrigation systems, facilitating daily management.",
+                p3Desc: "Lightweight and simple web barcode generator. Transforms entered data into a perfectly generated barcode in CODE39 format with automatic image download. Runs locally in the browser.",
+                p4Desc: "Automated weather archive system for the Zambujeira do Mar region. Saves daily screenshots from Windguru and IPMA, creating a reliable history for consulting and monitoring local conditions.",
+                openBtn: "[ OPEN PROJECT ]",
+                eof: "> END OF FILE <br>> 2026"
+            },
+            uk: {
+                startBtn: "ЗАПУСТИТИ СИСТЕМУ",
+                bio1: "> <strong>Статус:</strong> Онлайн<br>> <strong>Локація:</strong> Португалія<br>> <strong>Спеціалізація:</strong> Інженерія, автоматизація, практична веб-розробка.",
+                bio2: "Моє кредо — брати складні рутинні проблеми та створювати для них прості рішення. Працюючи з автоматизованими системами поливу, теплицями та технікою, я звик бачити, як і де можна оптимізувати процес. Для мене немає різниці між ремонтом чи створенням — будь то двигун автомобіля чи структура бази даних.",
+                bio3: "Створення веб-додатків — це моє хобі, яке приносить реальну користь. Я не пишу код заради коду. Я створюю легкі, швидкі та надійні інструменти, які можна відкрити на телефоні посеред поля, куди вводяться дані для миттєвого отримання результату, економлячи години роботи.<span class=\"cursor\">_</span>",
+                projTitle: "> ОГЛЯД ПРОЄКТІВ",
+                p1Desc: "Калькулятор поливу та дренажу. Створений для оптимізації розрахунків на робочому місці. Дозволяє швидко розрахувати норми без зайвих паперів та складних таблиць.",
+                p2Desc: "Калькулятор відсотка дренажу. Швидкий та точний інструмент для контролю рівня дренажу в системах поливу, що полегшує щоденне управління.",
+                p3Desc: "Легкий та простий веб-генератор штрих-кодів. Перетворює введені дані на ідеально згенерований штрих-код у форматі CODE39 з автоматичним завантаженням зображення. Працює локально в браузері.",
+                p4Desc: "Автоматизована система архіву погоди для регіону Замбужейра-ду-Мар. Зберігає щоденні скріншоти з Windguru та IPMA, створюючи надійну історію для перегляду та моніторингу місцевих умов.",
+                openBtn: "[ ВІДКРИТИ ПРОЄКТ ]",
+                eof: "> КІНЕЦЬ ФАЙЛУ <br>> 2026"
+            }
+        };
+
+        // Language Switch Logic
+        function changeLang(lang) {
+            document.documentElement.lang = lang === 'uk' ? 'uk-UA' : (lang === 'en' ? 'en-US' : 'pt-PT');
+            
+            // Update Text Elements
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update Active Class on Buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
     </script>
 
 </body>
